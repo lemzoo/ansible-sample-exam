@@ -1,0 +1,18 @@
+---
+- name: create user for webservers group
+  hosts: all 
+  become: yes
+  vars_files:
+    - /Users/LamineBA/Documents/workspace/aws/ansible/linuxacademy/exam-lisenet/user_list.yml
+    - /Users/LamineBA/Documents/workspace/aws/ansible/linuxacademy/exam-lisenet/secret.yml
+  tasks:
+    - name: user ID starts with 1 should be created on servers in the webservers host group
+      include_tasks: add_user.yml
+      with_items: "{{ users }}"
+      when: inventory_hostname in groups['webservers'] and item.uid | string | first == '1'
+
+    - name: user ID starts with 1 should be created on servers in the webservers host group
+      include_tasks: add_user.yml
+      with_items: "{{ users }}"
+      when: inventory_hostname in groups['database'] and item.uid | string | first == '2'
+

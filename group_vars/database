@@ -1,0 +1,4 @@
+servername: "database"
+packages:
+  - lsof
+  - mailx

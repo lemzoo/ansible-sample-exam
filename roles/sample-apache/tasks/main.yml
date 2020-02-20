@@ -1,0 +1,30 @@
+---
+# tasks file for sample-apache
+- name: The httpd, mod_ssl and php packages are installed
+  yum:
+    name:
+      - httpd
+      - mod_ssl
+      - php
+    state: present
+- name: Apache service is running and enabled on boot
+  service:
+    name: httpd
+    enabled: yes
+    state: started
+- name: Firewall is configured to allow all incoming traffic on HTTP port TCP 80 and HTTPS port TCP 443
+  firewalld:
+    port: "{{ item }}/tcp"
+    zone: public
+    state: enabled
+    permanent: yes
+    immediate: yes
+  with_items:
+    - 80
+    - 443
+- name: update index file with the ip address
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+  notify: RESTART_HTTPD
+

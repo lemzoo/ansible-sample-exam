@@ -1,0 +1,11 @@
+---
+- hosts: webservers
+  tasks:
+    - include_role:
+        name: rhel-system-role.selinux
+      vars:
+        httpd_can_network_connect: yes
+      register: selinux_result
+    - debug: var=selinux_result
+ 
+

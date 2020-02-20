@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Installs packages for proxy servers
+      yum:
+        name: "{{ packages }}"
+        state: present
+      when: inventory_hostname in groups['proxy']
+    - name: Installs packages for database servers
+      yum:
+        name: "{{ packages }}"
+        state: present
+      when: inventory_hostname in groups['database']

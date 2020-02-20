@@ -1,0 +1,8 @@
+---
+- hosts: webservers
+  become: yes
+  tasks:
+    - name: Sets the default boot target to multi-user
+      
+
+

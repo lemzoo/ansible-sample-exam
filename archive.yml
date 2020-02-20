@@ -1,0 +1,15 @@
+---
+- hosts: database
+  become: yes
+  tasks:
+    - name: "A file is created that contains the following line: dev,test,qa,prod"
+      lineinfile:
+        path: /mnt/mysql_backups/database_list.txt
+        line: "dev,test,qa,prod"
+        create: yes
+    - name: A gzip archive is created and stored in /mnt/mysql_backups/archive.gz.
+      archive:
+        path: /mnt/mysql_backups/database_list.txt
+        remote_src: yes
+        dest: /mnt/mysql_backups/archive.gz
+        format: gz

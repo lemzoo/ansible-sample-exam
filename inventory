@@ -1,0 +1,12 @@
+servera ansible_host=lemzoba1c.mylabserver.com
+serverb ansible_host=lemzoba2c.mylabserver.com
+serverc ansible_host=lemzoba3c.mylabserver.com
+
+[proxy]
+servera
+
+[webservers]
+serverb
+
+[database]
+serverb

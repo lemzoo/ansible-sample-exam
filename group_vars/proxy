@@ -1,0 +1,5 @@
+servername: "HAProxy"
+packages:
+  - tcpdump
+  - mailx
+

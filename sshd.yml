@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: configures SSHD daemon 
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "{{ item.regexp }}.*"
+        line: "{{ item.replace }}"
+      with_items:
+        - { regexp: "^Banner", replace: "Banner /etc/motd" }     
+        - { regexp: "^X11Forwarding", replace: "X11Forwarding no" }     
+        - { regexp: "^MaxAuthTries", replace: "MaxAuthTries 3" }    
+    - name: restart the service
+      service:
+        name: sshd
+        state: reloaded
+... 

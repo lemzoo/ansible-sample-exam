@@ -1,0 +1,14 @@
+---
+- name: add user {{ item.username }}
+  user:
+    name: "{{ item.username }}"
+    uid: "{{ item.uid }}"
+    password: "{{ user_password | password_hash('sha512') }}"
+    groups: wheel
+    append: yes
+    shell: /bin/bash
+
+- name: deploy ssh key for user {{ item.username }}
+  authorized_key:
+    user: "{{ item.username }}"
+    key: "{{ lookup('file', '/Users/LamineBA/Documents/workspace/aws/ansible/linuxacademy/exam-lisenet/automation.pub') }}"

@@ -1,0 +1,15 @@
+---
+- hosts: webservers
+  tasks:
+    - setup: 
+
+- hosts: proxy
+  become: yes
+  gather_facts: yes
+  roles:
+    - role: geerlingguy.haproxy
+      vars:
+        haproxy_backend_servers: "{{ groups['webservers'] | map('extract', hostvars, ['ansible_host']) | list }}"
+        haproxy_backend_balance_method: 'roundrobin'
+        haproxy_frontend_port: 80
+        haproxy_frontend_mode: 'http'

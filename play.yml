@@ -1,0 +1,14 @@
+---
+# - hosts: all
+#  tasks:
+#    - setup:
+
+- hosts: localhost 
+ # gather_facts: yes
+  tasks:
+    - debug:
+        msg: "groups={{ group_names }}"
+
+  #  - debug:
+   #     msg: "ansible_host={{ hostvars[item]['ansible_fqdn'] }}"
+    #  with_items: "{{ groups['all'] }}"

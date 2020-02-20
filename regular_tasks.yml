@@ -1,0 +1,12 @@
+---
+- hosts: proxy
+  become: yes
+  tasks:
+    - name: add a cron job for root user
+      cron:
+        name: "append the date"
+        job: "echo ($date) >> /var/log/time.log"
+        minute: 0
+        hour: "*/1"
+        state: present
+        user: root

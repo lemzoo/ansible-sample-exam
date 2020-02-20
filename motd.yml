@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: remove the /etc/motd
+      file:
+        path: /etc/motd
+        state: absent
+    - name: replace any existing content of /etc/motd with text
+      lineinfile:
+        path: /etc/motd
+        regexp: ".*"
+        line: "Welcome to {{ servername }} server"
+        create: yes
+        owner: automation
+        group: automation
+...

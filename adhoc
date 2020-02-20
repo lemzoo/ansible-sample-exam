@@ -1,0 +1,11 @@
+# add automation user on all managed nodes
+ansible all -m user -a "name=automation state=present" -b
+
+# add authorized key on all managed nodes
+ansible all -m authorized_key -a "user=automation key='{{ lookup('file', '/Users/LamineBA/Documents/workspace/aws/ansible/linuxacademy/exam-lisenet/automation.pub')}}'" -b
+
+# automation user is allowed to elevate privileges on all inventory hosts without having to provide a password.
+ansible all -m user -a "name=automation append=yes groups=wheel" -b
+
+# add a test to check if automation user can escalade priviledge
+ansible all -m yum -a "name=elinks state=absent" -b -become-user=automation

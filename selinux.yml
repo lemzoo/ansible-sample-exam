@@ -1,0 +1,10 @@
+---
+- hosts: webservers
+  become: yes
+  tasks:
+    - name: configure host with selinux
+      selinux:
+        policy: targeted
+        state: enforcing
+      register: selinux_result
+    - debug: var=selinux_result
